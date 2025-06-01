@@ -13,7 +13,8 @@
     <title>Document</title>
   </head>
   <body>
-    <header class="bg-white/10 backdrop-blur-sm backdrop-filter fixed w-full z-50 shadow-sm dark:bg-gray-900/10">
+    <!-- header start -->
+    <header class="bg-white/30 backdrop-blur-md backdrop-filter fixed w-full z-50 shadow-sm dark:bg-gray-900/30">
       <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="md:flex md:items-center md:gap-12">
@@ -112,5 +113,74 @@
         </div>
       </div>
     </header>
+    <!-- header end -->
+     <!-- Banner start -->
+     <section class="relative bg-[#D4CCBF] lg:grid lg:grid-cols-2 lg:items-center lg:h-screen overflow-hidden dark:bg-gray-900">
+      <div class="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:py-0 z-10 h-full flex items-center">
+        <div class="max-w-lg lg:ml-auto lg:mr-0 text-left">
+          <h1 class="text-5xl font-bold text-gray-900 sm:text-6xl dark:text-white leading-tight">
+            NIKE P-6000
+            <br>
+            KHAKI METALIC SILVER
+          </h1>
+
+          <p class="mt-4 text-sm text-pretty text-gray-800 sm:text-base/relaxed dark:text-gray-200 max-w-sm">
+            LOREM IPSUM DOLOR SIT AMET, CONSECTETUR
+            ADIPISCING ELIT. SED DO EIUSMOD TEMPOR INCIDIDUNT
+            UT LABORE ET DOLORE MAGNA ALIQUA.
+          </p>
+
+          <div class="mt-8">
+            <a
+              class="inline-block rounded-full bg-black px-8 py-4 text-sm font-medium text-white shadow-sm transition-colors hover:bg-gray-800"
+              href="#"
+            >
+              SHOP NOW >
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Container -->
+      <div class="relative h-full flex items-center justify-end z-0 overflow-hidden lg:overflow-visible">
+        <!-- Replace with your shoe image -->
+        <img src="/homepage/img/nike.png" alt="Nike P-6000" class="absolute bottom-0 right-0 w-auto h-full object-contain transform lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 lg:w-auto lg:h-full lg:max-h-[150vh] lg:scale-80 lg:object-contain lg:object-center">
+      </div>
+
+      <!-- Bottom Details Bar -->
+      <div class="absolute bottom-0 left-0 right-0 bg-[#D1C7B5] bg-opacity-90 p-5 z-20 hidden lg:block rounded-lg mx-auto max-w-screen-xl mb-4 shadow-inner">
+        <div class="grid grid-cols-5 gap-4 text-sm text-gray-800 items-center">
+          <!-- Models -->
+          <div>
+            <p class="font-bold text-xs uppercase tracking-wide">Models</p>
+            <p class="text-xs text-gray-600">Sneakers</p>
+          </div>
+          <!-- Brand -->
+          <div>
+            <p class="font-bold text-xs uppercase tracking-wide">Brand</p>
+            <p class="text-xs text-gray-600">Nike</p>
+          </div>
+          <!-- Colors -->
+          <div>
+            <p class="font-bold text-xs uppercase tracking-wide">Colors</p>
+            <p class="text-xs text-gray-600">Metallic Silver</p>
+          </div>
+          <!-- Price -->
+          <div>
+            <p class="font-bold text-xs uppercase tracking-wide">Price</p>
+            <p class="text-xs text-gray-600">Rp 1.000.000</p>
+          </div>
+          <!-- Button -->
+          <div class="flex items-center justify-end h-full">
+             <a
+               href="#"
+               class="inline-block rounded-full border border-black px-6 py-2 text-sm font-semibold text-white bg-black hover:bg-white hover:text-black transition-all duration-200"
+             >
+               SHOP NOW &rsaquo;
+             </a>
+          </div>
+        </div>
+      </div>
+      <!-- Banner end -->
   </body>
 </html>

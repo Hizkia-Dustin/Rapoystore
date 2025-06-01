@@ -21,7 +21,8 @@
             <a class="block text-teal-600 dark:text-teal-600" href="#">
               <span class="sr-only">logo</span>
               <svg
-                class="h-8"
+                id="site-logo"
+                class="h-8 transition-transform duration-200 ease-out hover:scale-110 hover:-translate-y-1"
                 viewBox="0 0 28 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +81,7 @@
 
               <div class="hidden sm:flex">
                 <a
-                  class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
+                  class="rounded-md border border-gray-800 px-5 py-2.5 text-sm font-medium text-gray-800 shadow-sm transition-colors hover:bg-gray-800 hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-800"
                   href="#"
                 >
                 <i class="fa-solid fa-cart-plus"></i>
@@ -115,26 +116,29 @@
     </header>
     <!-- header end -->
      <!-- Banner start -->
-     <section class="relative bg-[#D4CCBF] lg:grid lg:grid-cols-2 lg:items-center lg:h-screen overflow-hidden dark:bg-gray-900">
-      <div class="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:py-0 z-10 h-full flex items-center">
-        <div class="max-w-lg lg:ml-auto lg:mr-0 text-left">
-          <h1 class="text-5xl font-bold text-gray-900 sm:text-6xl dark:text-white leading-tight">
-            NIKE P-6000
-            <br>
-            KHAKI METALIC SILVER
-          </h1>
+     <section id="main-banner" class="relative bg-[#D4CCBF] lg:grid lg:grid-cols-2 lg:items-center lg:h-screen overflow-hidden dark:bg-gray-900">
 
-          <p class="mt-4 text-sm text-pretty text-gray-800 sm:text-base/relaxed dark:text-gray-200 max-w-sm">
-            LOREM IPSUM DOLOR SIT AMET, CONSECTETUR
-            ADIPISCING ELIT. SED DO EIUSMOD TEMPOR INCIDIDUNT
-            UT LABORE ET DOLORE MAGNA ALIQUA.
-          </p>
+        <div class="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:py-0 z-10 h-full flex items-center">
+          <div class="max-w-lg lg:ml-auto lg:mr-0 text-left">
+            <h1 class="text-5xl font-bold text-gray-900 sm:text-8xl dark:text-white leading-tight">
+              NIKE P-6000
+            </h1>
 
-          <div class="mt-8">
-            <a
-              class="inline-block rounded-full bg-black px-8 py-4 text-sm font-medium text-white shadow-sm transition-colors hover:bg-gray-800"
-              href="#"
-            >
+            <h2 class="text-3xl text-gray-900 sm:text-5xl dark:text-white leading-tight sm:mt-[-2rem]">
+              KHAKI METALIC SILVER
+            </h2>
+
+            <p class="mt-4 text-sm text-pretty text-gray-800 sm:text-base/relaxed dark:text-gray-200 max-w-sm">
+              Tampil keren dan nyaman dengan Nike P-6000 Khaki Metallic, 
+              sneakers bergaya retro running yang menggabungkan desain 
+              klasik dengan sentuhan modern.
+            </p>
+
+            <div class="mt-8">
+              <a
+                class="inline-block rounded-full bg-black px-8 py-4 text-sm font-medium text-white shadow-sm transition-colors hover:bg-gray-800"
+                href="#"
+              >
               SHOP NOW >
             </a>
           </div>
@@ -144,11 +148,11 @@
       <!-- Image Container -->
       <div class="relative h-full flex items-center justify-end z-0 overflow-hidden lg:overflow-visible">
         <!-- Replace with your shoe image -->
-        <img src="/homepage/img/nike.png" alt="Nike P-6000" class="absolute bottom-0 right-0 w-auto h-full object-contain transform lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 lg:w-auto lg:h-full lg:max-h-[150vh] lg:scale-80 lg:object-contain lg:object-center">
+        <img src="/homepage/img/nike.png" alt="Nike P-6000" class="absolute bottom-0 right-0 w-auto h-full object-contain transform lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 lg:w-auto lg:h-full lg:max-h-[150vh] lg:scale-125 lg:object-contain lg:object-center">
       </div>
-
+    </section>
       <!-- Bottom Details Bar -->
-      <div class="absolute bottom-0 left-0 right-0 bg-[#D1C7B5] bg-opacity-90 p-5 z-20 hidden lg:block rounded-lg mx-auto max-w-screen-xl mb-4 shadow-inner">
+      <div id="bottom-details-bar" class="absolute bottom-0 left-0 right-0 bg-[#D1C7B5] bg-opacity-90 p-5 z-20 hidden lg:block rounded-lg mx-auto max-w-screen-xl mb-4 shadow-inner">
         <div class="grid grid-cols-5 gap-4 text-sm text-gray-800 items-center">
           <!-- Models -->
           <div>
@@ -182,5 +186,6 @@
         </div>
       </div>
       <!-- Banner end -->
+
   </body>
 </html>

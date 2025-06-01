@@ -16,13 +16,13 @@
     <!-- header start -->
     <header class="bg-white/30 backdrop-blur-md backdrop-filter fixed w-full z-50 shadow-sm dark:bg-gray-900/30">
       <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-        <div class="flex h-16 items-center justify-between">
+        <div class="flex h-20 items-center justify-between">
           <div class="md:flex md:items-center md:gap-12">
             <a class="block text-teal-600 dark:text-teal-600" href="#">
               <span class="sr-only">logo</span>
               <svg
                 id="site-logo"
-                class="h-8 transition-transform duration-200 ease-out hover:scale-110 hover:-translate-y-1"
+                class="h-10 transition-transform duration-200 ease-out hover:scale-110 hover:-translate-y-1"
                 viewBox="0 0 28 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@
 
           <div class="hidden md:block">
             <nav aria-label="Global">
-              <ul class="flex items-center gap-6 text-sm">
+              <ul class="flex items-center gap-6 text-base">
                 <li>
                   <a
                     class="text-black-500 text-xl transition hover:text-gray-500/75 hover:underline dark:text-black dark:hover:text-underline/75"
@@ -84,7 +84,7 @@
                   class="rounded-md border border-gray-800 px-5 py-2.5 text-sm font-medium text-gray-800 shadow-sm transition-colors hover:bg-gray-800 hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-800"
                   href="#"
                 >
-                <i class="fa-solid fa-cart-plus"></i>
+                <i class="fa-solid fa-cart-plus text-xl"></i>
 
                 </a>
               </div>
@@ -96,7 +96,7 @@
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="size-5"
+                  class="size-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -116,11 +116,10 @@
     </header>
     <!-- header end -->
      <!-- Banner start -->
-     <section id="main-banner" class="relative bg-[#D4CCBF] lg:grid lg:grid-cols-2 lg:items-center lg:h-screen overflow-hidden dark:bg-gray-900">
-
-        <div class="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:py-0 z-10 h-full flex items-center">
-          <div class="max-w-lg lg:ml-auto lg:mr-0 text-left">
-            <h1 class="text-5xl font-bold text-gray-900 sm:text-8xl dark:text-white leading-tight">
+     <section id="main-banner" class="relative bg-[#D4CCBF] lg:grid lg:grid-cols-2 lg:items-center lg:h-[85vh] overflow-hidden dark:bg-gray-900 mt-[-8] shadow-2xl">
+        <div class="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:py-0 z-10 h-full flex items-center sm:mt-[-10rem]">
+          <div class="max-w-lg lg:ml-auto lg:mr-0 text-left ">
+            <h1 class="text-5xl font text-gray-900 sm:text-8xl dark:text-white leading-tight">
               NIKE P-6000
             </h1>
 
@@ -128,57 +127,51 @@
               KHAKI METALIC SILVER
             </h2>
 
-            <p class="mt-4 text-sm text-pretty text-gray-800 sm:text-base/relaxed dark:text-gray-200 max-w-sm">
+            <p class="sm:mt-[-0.1rem] text-sm text-pretty text-gray-800 sm:text-0,1:text-base/relaxed dark:text-gray-200 max-w-sm text-justify">
               Tampil keren dan nyaman dengan Nike P-6000 Khaki Metallic, 
               sneakers bergaya retro running yang menggabungkan desain 
-              klasik dengan sentuhan modern.
+              klasik dengan sentuhan modern. Warna khaki yang earthy dipadukan dengan aksen
+               metallic silver memberikan kesan elegan sekaligus sporty 
             </p>
 
-            <div class="mt-8">
-              <a
-                class="inline-block rounded-full bg-black px-8 py-4 text-sm font-medium text-white shadow-sm transition-colors hover:bg-gray-800"
-                href="#"
-              >
-              SHOP NOW >
-            </a>
-          </div>
+            
         </div>
       </div>
 
       <!-- Image Container -->
       <div class="relative h-full flex items-center justify-end z-0 overflow-hidden lg:overflow-visible">
         <!-- Replace with your shoe image -->
-        <img src="/homepage/img/nike.png" alt="Nike P-6000" class="absolute bottom-0 right-0 w-auto h-full object-contain transform lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 lg:w-auto lg:h-full lg:max-h-[150vh] lg:scale-125 lg:object-contain lg:object-center">
+        <img src="/homepage/img/nike.png" alt="Nike P-6000" class="absolute bottom-0 right-0 w-auto h-full object-contain transform lg:absolute lg:right-28 lg:top-1/2 lg:-translate-y-1/2 lg:w-auto lg:h-full lg:max-h-[150vh] lg:scale-90 lg:object-contain lg:object-center sm:mt-[-2rem]">
       </div>
     </section>
       <!-- Bottom Details Bar -->
-      <div id="bottom-details-bar" class="absolute bottom-0 left-0 right-0 bg-[#D1C7B5] bg-opacity-90 p-5 z-20 hidden lg:block rounded-lg mx-auto max-w-screen-xl mb-4 shadow-inner">
-        <div class="grid grid-cols-5 gap-4 text-sm text-gray-800 items-center">
+      <div id="bottom-details-bar" class="absolute bottom-0 left-1/2 -translate-x-1/2 bg-[#D1C7B5] bg-opacity-90 px-8 py-6 z-20 hidden lg:block rounded-lg w-[1000px] mb-4 shadow-inner translate-y-[-7rem]">
+        <div class="grid grid-cols-5 gap-x-12 text-base text-gray-800 items-center w-full">
           <!-- Models -->
           <div>
-            <p class="font-bold text-xs uppercase tracking-wide">Models</p>
-            <p class="text-xs text-gray-600">Sneakers</p>
+            <p class="font-bold text-base uppercase tracking-wide">Models</p>
+            <p class="text-base text-gray-600">Sneakers</p>
           </div>
           <!-- Brand -->
           <div>
-            <p class="font-bold text-xs uppercase tracking-wide">Brand</p>
-            <p class="text-xs text-gray-600">Nike</p>
+            <p class="font-bold text-base uppercase tracking-wide">Brand</p>
+            <p class="text-base text-gray-600">Nike</p>
           </div>
           <!-- Colors -->
           <div>
-            <p class="font-bold text-xs uppercase tracking-wide">Colors</p>
-            <p class="text-xs text-gray-600">Metallic Silver</p>
+            <p class="font-bold text-base uppercase tracking-wide">Colors</p>
+            <p class="text-base text-gray-600">Metallic Silver</p>
           </div>
           <!-- Price -->
           <div>
-            <p class="font-bold text-xs uppercase tracking-wide">Price</p>
-            <p class="text-xs text-gray-600">Rp 1.000.000</p>
+            <p class="font-bold text-base uppercase tracking-wide">Price</p>
+            <p class="text-base text-gray-600">Rp 1.000.000</p>
           </div>
           <!-- Button -->
-          <div class="flex items-center justify-end h-full">
+          <div class="flex items-center justify-end h-full col-span-1">
              <a
                href="#"
-               class="inline-block rounded-full border border-black px-6 py-2 text-sm font-semibold text-white bg-black hover:bg-white hover:text-black transition-all duration-200"
+               class="inline-block rounded-full bg-black px-8 py-4 text-base font-semibold text-white hover:bg-gray-800 transition-colors duration-200"
              >
                SHOP NOW &rsaquo;
              </a>
@@ -186,6 +179,10 @@
         </div>
       </div>
       <!-- Banner end -->
+
+      <!-- recomendation start  -->
+      <section id="recomendation" class="relative bg-white lg:grid lg:grid-cols-2 lg:items-center lg:h-screen overflow-hidden dark:bg-gray-900 mt-[-8]"> </section>
+      <!-- recomendation end -->
 
   </body>
 </html>

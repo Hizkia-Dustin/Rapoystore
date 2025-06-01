@@ -35,15 +35,20 @@ body {
 }
 
 #main-banner {
-  background-image: linear-gradient(to bottom right, #E0D9CD, #947442, #E0D9CD); /* The gradient */
-  background-size: 400% 400%; /* Makes the gradient larger than the element */
-  animation: gradient-animation 15s ease infinite; /* Applies the animation */
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.2) 0%, rgba(139, 69, 19, 0) 50%), /* Brown circle */
+    radial-gradient(circle at 80% 70%, rgba(192, 192, 192, 0.3) 0%, rgba(192, 192, 192, 0) 50%), /* Silver circle */
+    radial-gradient(circle at 50% 50%, rgba(139, 69, 19, 0.25) 0%, rgba(139, 69, 19, 0) 50%), /* Another brown circle */
+    radial-gradient(circle at 30% 80%, rgba(192, 192, 192, 0.25) 0%, rgba(192, 192, 192, 0) 50%), /* Another silver circle */
+    linear-gradient(to bottom right, #E0D9CD, #C8BFB1, #E0D9CD); /* Keep the original linear gradient as a base */
+  background-size: 400% 400%, 400% 400%, 400% 400%, 400% 400%, 400% 400%; /* Set size for each layer (added one more) */
+  animation: radial-move 6s ease infinite; /* Apply new animation - Reduced duration */
   /* Keep existing background color as a fallback */
   background-color: #D4CCBF;
 }
 
-@keyframes gradient-animation {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+@keyframes radial-move {
+  0% { background-position: 0% 0%, 100% 100%, 50% 50%, 30% 80%, 0% 0%; }
+  50% { background-position: 50% 100%, 0% 0%, 100% 50%, 80% 30%, 50% 50%; }
+  100% { background-position: 0% 0%, 100% 100%, 50% 50%, 30% 80%, 0% 0%; }
 }

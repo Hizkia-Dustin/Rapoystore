@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <span class="text-3xl font-bold text-slate-900">${product.price}</span>
             </p> 
             <div class="flex items-center">
-              <svg aria-hidden="true" class="h-5 w-5 text-yellow-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <svg aria-hidden="true" class="h-5 w-5 text-yellow-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.o-rg/2000/svg">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
               </svg>
               <span class="mr-2 ml-3 rounded bg-yellow-200 px-2.5 py-0.5 text-xs font-semibold">${product.rating}</span>
@@ -383,21 +383,23 @@ document.addEventListener('DOMContentLoaded', () => {
     testimonialPositions.left4 -= 1;
     testimonialPositions.right4 += 1;
 
-    // Reset positions when they reach certain thresholds
-    const resetThreshold = 2000;
-    Object.keys(testimonialPositions).forEach(key => {
-      if (key.startsWith('left') && testimonialPositions[key] < -resetThreshold) {
-        testimonialPositions[key] = 0;
-      }
-      if (key.startsWith('right') && testimonialPositions[key] > resetThreshold) {
-        testimonialPositions[key] = 0;
-      }
-    });
-
+    // Apply transforms without modifying DOM content
     const testimonialTexts = document.querySelectorAll('.bg-neutral-950 [data-direction]');
     testimonialTexts.forEach((text, index) => {
       const positionKey = `${text.getAttribute('data-direction')}${Math.floor(index/2) + 1}`;
-      text.style.transform = `translateX(${testimonialPositions[positionKey]}px)`;
+      let position = testimonialPositions[positionKey];
+
+      // Reset position when it reaches a certain threshold to create illusion of infinite scroll
+      const maxPosition = 2000;
+      if (positionKey.startsWith('left') && position < -maxPosition) {
+        testimonialPositions[positionKey] = 0;
+        position = 0;
+      } else if (positionKey.startsWith('right') && position > maxPosition) {
+        testimonialPositions[positionKey] = 0;
+        position = 0;
+      }
+
+      text.style.transform = `translateX(${position}px)`;
     });
 
     testimonialAnimationFrame = requestAnimationFrame(animateTestimonial);
@@ -429,4 +431,78 @@ document.addEventListener('DOMContentLoaded', () => {
       animateTestimonial();
     }
   });
+
+  // =============================================
+  // Popular Brands Auto Scroll Animation
+  // =============================================
+  const brandScrollContainer = document.getElementById('brand-scroll-container');
+  let scrollPosition = 0;
+  let scrollSpeed = 1; // Adjust speed as needed
+  let brandAnimationFrame;
+  let originalBrandWidth = 0; // To store the total width of one set of brands
+
+  // Duplicate brands for seamless loop (need enough to fill the container twice)
+  if (brandScrollContainer) {
+    const brands = Array.from(brandScrollContainer.children);
+    const numOriginalBrands = brands.length;
+
+    // Calculate the total width of one set of original brands including gaps
+    if (numOriginalBrands > 0) {
+      originalBrandWidth = brands.reduce((total, brand, index) => {
+        const brandWidth = brand.offsetWidth;
+        // Add margin only for elements that are not the last in the original set
+        const margin = (index < numOriginalBrands - 1) ? parseFloat(getComputedStyle(brand).marginRight) : 0;
+        return total + brandWidth + margin;
+      }, 0);
+       // Add the margin-right of the last original element to the last duplicate as well
+      if(numOriginalBrands > 0) {
+           originalBrandWidth += parseFloat(getComputedStyle(brands[numOriginalBrands-1]).marginRight);
+      }
+    }
+
+    // Duplicate the original brands
+    for (let i = 0; i < numOriginalBrands; i++) {
+      brandScrollContainer.appendChild(brands[i].cloneNode(true));
+    }
+     // Ensure the duplicated set also has the correct margin after its last element
+     const duplicatedBrands = Array.from(brandScrollContainer.children).slice(numOriginalBrands);
+      if(duplicatedBrands.length > 0) {
+           duplicatedBrands[duplicatedBrands.length -1].style.marginRight = getComputedStyle(brands[numOriginalBrands-1]).marginRight;
+      }
+
+     // Set the total width of the container to prevent wrapping and ensure smooth scroll
+     brandScrollContainer.style.width = `${originalBrandWidth * 2}px`;
+  }
+
+  function animateBrands() {
+    if (!brandScrollContainer || originalBrandWidth === 0) return;
+
+    scrollPosition -= scrollSpeed;
+
+    // Reset position when the scroll position goes past the total width of one set of brands
+    if (scrollPosition <= -originalBrandWidth) {
+      // Jump forward by the total width of one set to loop seamlessly
+      scrollPosition += originalBrandWidth;
+      // console.log('Resetting scrollPosition, new position:', scrollPosition);
+    }
+
+    brandScrollContainer.style.transform = `translateX(${scrollPosition}px)`;
+    brandAnimationFrame = requestAnimationFrame(animateBrands);
+  }
+
+  // Start brand animation if container exists
+  if (brandScrollContainer) {
+    // Set initial scroll position to 0
+    brandScrollContainer.style.transform = `translateX(0)`;
+    animateBrands();
+
+    // Pause on hover
+    brandScrollContainer.parentElement.addEventListener('mouseenter', () => {
+      cancelAnimationFrame(brandAnimationFrame);
+    });
+
+    brandScrollContainer.parentElement.addEventListener('mouseleave', () => {
+      animateBrands();
+    });
+  }
 });

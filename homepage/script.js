@@ -601,7 +601,7 @@ document.addEventListener('DOMContentLoaded', () => {
       '.pt-20.pb-12 h2, .pt-20.pb-12 p,' + // Popular products title
       '.bg-white.py-17 h2,' + // Why Choose Us title
       '.bg-neutral-950 h2, .bg-neutral-950 p,' + // Testimonials title and description
-      '.max-w-7xl.mx-auto.px-4.sm\:px-6.md\:px-8.py-16 h2' // Popular Brands title
+      '.max-w-7xl h2, .max-w-7xl p' // Select main titles/paragraphs within max-w-7xl containers
      );
 
      mainContentText.forEach(element => {
@@ -622,4 +622,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize scroll animations
   setupScrollAnimations();
+
+  // =============================================
+  // Smooth Scroll for Anchor Links
+  // =============================================
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
 });

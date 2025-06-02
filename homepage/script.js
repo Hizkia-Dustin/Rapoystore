@@ -495,12 +495,52 @@ document.addEventListener('DOMContentLoaded', () => {
     threshold: 0.1
   };
 
+  let lastScrollY = 0;
+  let scrollDirection = 'down';
+
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollY) {
+      scrollDirection = 'down';
+    } else {
+      scrollDirection = 'up';
+    }
+    lastScrollY = currentScrollY;
+  });
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
+      const targetElement = entry.target;
+      const animateOnScrollDirection = targetElement.classList.contains('animate-on-scroll-direction');
+
       if (entry.isIntersecting) {
-        entry.target.classList.add('animate-in');
-        // Unobserve after animation is triggered
-        observer.unobserve(entry.target);
+        targetElement.classList.remove('opacity-0', '-translate-y-8', 'translate-y-8'); // Remove initial state classes
+        targetElement.classList.add('animate-in');
+        // For elements animating based on scroll direction, unobserve once animated to avoid re-triggering on scroll up unless specifically handled
+        // if (animateOnScrollDirection) {
+        //     observer.unobserve(targetElement);
+        // }
+      } else {
+        // Element is leaving the viewport
+        targetElement.classList.remove('animate-in');
+
+        // For elements animating based on scroll direction, reset the initial position based on scroll direction for next entry
+        if (animateOnScrollDirection) {
+           targetElement.classList.add('opacity-0'); // Make it invisible again
+           if (scrollDirection === 'down') {
+             targetElement.classList.add('-translate-y-8'); // Prepare to slide down next time
+             targetElement.classList.remove('translate-y-8');
+           } else {
+             targetElement.classList.add('translate-y-8'); // Prepare to slide up next time
+             targetElement.classList.remove('-translate-y-8');
+           }
+        } else {
+            // For other elements, just reset opacity and maintain slide-down initial state
+            targetElement.classList.add('opacity-0');
+            if (!targetElement.classList.contains('-translate-y-8') && !targetElement.classList.contains('translate-y-8')) {
+                 targetElement.classList.add('-translate-y-8'); // Default to slide down if no initial state
+            }
+        }
       }
     });
   }, observerOptions);
@@ -510,38 +550,64 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hero section elements
     const heroContent = document.querySelector('.text-center.pt-30');
     if (heroContent) {
-      heroContent.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-1000');
+      heroContent.classList.add('opacity-0', '-translate-y-8', 'transition-all', 'duration-1000');
       observer.observe(heroContent);
     }
+
+    // Banner cards (left and right)
+    const bannerCards = document.querySelectorAll('.left-card-container, .right-card-container');
+    bannerCards.forEach(card => {
+         // Add initial state and observe. The observer will handle the scroll direction animation.
+         card.classList.add('opacity-0', '-translate-y-8', 'transition-all', 'duration-700');
+         observer.observe(card);
+    });
+
 
     // Product cards
     const productCards = document.querySelectorAll('#product-grid-container > div');
     productCards.forEach((card, index) => {
-      card.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-700');
+      card.classList.add('opacity-0', '-translate-y-8', 'transition-all', 'duration-700');
       card.style.transitionDelay = `${index * 100}ms`;
       observer.observe(card);
     });
 
-    // Why Choose Us section
-    const whyChooseUs = document.querySelector('.bg-white.py-17');
-    if (whyChooseUs) {
-      whyChooseUs.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-1000');
-      observer.observe(whyChooseUs);
-    }
+    // Why Choose Us cards
+    const whyChooseUsCards = document.querySelectorAll('.why-choose-us-card');
+      whyChooseUsCards.forEach((card, index) => {
+        // Add initial state and observe. The observer will handle the scroll direction animation.
+        card.classList.add('opacity-0', '-translate-y-8', 'transition-all', 'duration-700');
+        card.style.transitionDelay = `${index * 250}ms`; // Increased delay for a more gradual effect
+        observer.observe(card);
+      });
 
-    // Testimonials section
-    const testimonials = document.querySelector('.bg-neutral-950');
-    if (testimonials) {
-      testimonials.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-1000');
-      observer.observe(testimonials);
-    }
+    // Testimonial cards
+    const testimonialCards = document.querySelectorAll('.bg-neutral-950 .bg-neutral-900');
+    testimonialCards.forEach((card, index) => {
+      card.classList.add('opacity-0', '-translate-y-8', 'transition-all', 'duration-700');
+      card.style.transitionDelay = `${index * 150}ms`;
+      observer.observe(card);
+    });
 
-    // Popular Brands section
-    const popularBrands = document.querySelector('.pt-0.pb-0');
-    if (popularBrands) {
-      popularBrands.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-1000');
-      observer.observe(popularBrands);
-    }
+    // Popular Brands items
+    const brandItems = document.querySelectorAll('.pt-0.pb-0 .flex-shrink-0.w-64');
+    brandItems.forEach((item, index) => {
+      item.classList.add('opacity-0', '-translate-y-8', 'transition-all', 'duration-700');
+      item.style.transitionDelay = `${index * 100}ms`;
+      observer.observe(item);
+    });
+
+    // Observe main section titles and paragraphs as well
+     const mainContentText = document.querySelectorAll(
+      '.pt-20.pb-12 h2, .pt-20.pb-12 p,' + // Popular products title
+      '.bg-white.py-17 h2,' + // Why Choose Us title
+      '.bg-neutral-950 h2, .bg-neutral-950 p,' + // Testimonials title and description
+      '.max-w-7xl.mx-auto.px-4.sm\:px-6.md\:px-8.py-16 h2' // Popular Brands title
+     );
+
+     mainContentText.forEach(element => {
+        element.classList.add('opacity-0', '-translate-y-8', 'transition-all', 'duration-1000');
+        observer.observe(element);
+     });
   }
 
   // Add CSS for animations

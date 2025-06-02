@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.cdnfonts.com/css/richard-miller" rel="stylesheet">
+    <link rel="stylesheet" href="/homepage/main/style.css">
+    <link rel="stylesheet" href="faq.css">
+    <title>Rapoy Store</title>
+    <style>
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s ease;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .faq-item {
+        transition: all 0.3s ease;
+        border: 1px solid #e5e7eb;
+      }
+      .faq-item:hover {
+        transform: translateX(10px);
+        border-color: #000;
+      }
+      .faq-answer {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: all 0.3s ease-out;
+      }
+      .faq-answer.active {
+        max-height: 500px;
+        opacity: 1;
+        margin-top: 1rem;
+      }
+      .faq-question {
+        cursor: pointer;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .faq-question i {
+        transition: transform 0.3s ease;
+      }
+      .faq-question.active i {
+        transform: rotate(180deg);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header Start -->
+    <header class="bg-white/30 backdrop-blur-md backdrop-filter fixed w-full z-50 shadow-sm dark:bg-gray-900/30">
+      <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-20 items-center justify-between">
+          <!-- Logo -->
+          <div class="flex items-center">
+            <a class="block" href="#">
+              <span class="sr-only">logo</span>
+              <img src="/homepage/img/IMG_20250601_160540.png" alt="Rapoy Store Logo" class="h-16 w-auto" />
+            </a>
+          </div>
+
+          <!-- Navigation -->
+          <div class="flex-1 flex justify-center">
+            <nav aria-label="Global">
+              <ul class="flex items-center gap-8 text-base">
+                <li>
+                  <a class="text-black-500 text-lg transition hover:text-gray-500/75 hover:underline" href="#">
+                    HOME
+                  </a>
+                </li>
+                <li>
+                  <a class="text-black-500 text-lg transition hover:text-gray-500/75 hover:underline" href="/homepage/Store/store.html">
+                    STORE
+                  </a>
+                </li>
+                <li>
+                  <a class="text-black-500 text-lg transition hover:text-gray-500/75 hover:underline" href="/homepage/FAQ/faq.html">
+                    FAQ
+                  </a>
+                </li>
+                <li>
+                  <a class="text-black-500 text-lg transition hover:text-gray-500/75 hover:underline" href="/homepage/CONTACT/contact.html">
+                    CONTACT
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <!-- Icons -->
+          <div class="flex items-center gap-4">
+            <a href="/homepage/favorites/favorites.html" class="text-black-500 text-lg hover:text-gray-500/75">
+              <i class="fas fa-heart"></i>
+            </a>
+            <a href="/homepage/cart/shopping-cart.html" class="text-black-500 text-lg hover:text-gray-500/75">
+              <i class="fas fa-shopping-cart"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="fixed top-20 left-0 w-full h-1 bg-gray-200 z-50">
+      <div id="progress-bar" class="h-full bg-black transition-all duration-300" style="width: 0%"></div>
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="pt-40 pb-16 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <!-- Hero Section -->
+        <div class="text-center mb-16 fade-in">
+          <h1 class="text-5xl font-bold mb-6 bg-gradient-to-r from-black to-gray-600 bg-clip-text text-transparent">Pertanyaan yang Sering Diajukan</h1>
+          <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+            Temukan jawaban untuk pertanyaan umum tentang produk, pengiriman, dan layanan kami.
+          </p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container fade-in">
+          <div class="relative">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="faqSearch" class="search-input" placeholder="Cari pertanyaan..." />
+          </div>
+        </div>
+
+        <!-- FAQ Categories -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <button class="faq-category-btn active p-4 rounded-lg bg-black text-white hover:bg-gray-800 transition-all duration-300">
+            <i class="fas fa-question-circle mr-2"></i>
+            Pertanyaan Umum
+          </button>
+          <button class="faq-category-btn p-4 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 transition-all duration-300">
+            <i class="fas fa-truck mr-2"></i>
+            Pengiriman & Pengiriman
+          </button>
+          <button class="faq-category-btn p-4 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 transition-all duration-300">
+            <i class="fas fa-undo mr-2"></i>
+            Pengembalian & Pengembalian Dana
+          </button>
+        </div>
+
+        <!-- FAQ Items -->
+        <div class="space-y-6">
+          <!-- General Questions -->
+          <div class="faq-category active">
+            <div class="faq-item bg-white rounded-xl shadow-sm">
+              <div class="faq-question">
+                <h3 class="text-lg font-semibold text-gray-800">
+                  <i class="fas fa-store mr-2 text-gray-500"></i>
+                  Apa itu Rapoy Store?
+                </h3>
+                <i class="fas fa-chevron-down text-gray-500"></i>
+              </div>
+              <div class="faq-answer px-6 pb-6 text-gray-600">
+                Rapoy Store adalah destinasi one-stop Anda untuk produk fashion dan gaya hidup berkualitas tinggi. Kami menawarkan pilihan pakaian, aksesori, dan lainnya yang dirancang untuk meningkatkan gaya pribadi Anda.
+              </div>
+            </div>
+
+            <div class="faq-item bg-white rounded-xl shadow-sm">
+              <div class="faq-question">
+                <h3 class="text-lg font-semibold text-gray-800">
+                  <i class="fas fa-shopping-cart mr-2 text-gray-500"></i>
+                  Di mana saya bisa melakukan pemesanan?
+                </h3>
+                <i class="fas fa-chevron-down text-gray-500"></i>
+              </div>
+              <div class="faq-answer px-6 pb-6 text-gray-600">
+                Anda dapat melakukan pemesanan melalui berbagai platform kami:
+                <ul class="list-disc list-inside mt-2 space-y-1">
+                  <li><i class="fab fa-shopify mr-2"></i>Shopee: @rapoystore</li>
+                  <li><i class="fas fa-store mr-2"></i>Tokopedia: @rapoystore</li>
+                  <li><i class="fab fa-instagram mr-2"></i>Instagram: @rapoystore</li>
+                  <li><i class="fab fa-whatsapp mr-2"></i>WhatsApp: +62 812 3456 7890</li>
+                  <li><i class="fas fa-globe mr-2"></i>Website: www.rapoystore.com</li>
+                </ul>
+                Pilih platform yang paling nyaman untuk Anda!
+              </div>
+            </div>
+
+            <div class="faq-item bg-white rounded-xl shadow-sm">
+              <div class="faq-question">
+                <h3 class="text-lg font-semibold text-gray-800">
+                  <i class="fas fa-credit-card mr-2 text-gray-500"></i>
+                  Metode pembayaran apa yang Anda terima?
+                </h3>
+                <i class="fas fa-chevron-down text-gray-500"></i>
+              </div>
+              <div class="faq-answer px-6 pb-6 text-gray-600">
+                Kami menerima berbagai metode pembayaran termasuk kartu kredit/debit, transfer bank, dan e-wallet populer. Semua transaksi aman dan terenkripsi untuk keamanan Anda.
+              </div>
+            </div>
+          </div>
+
+          <!-- Shipping & Delivery -->
+          <div class="faq-category hidden">
+            <div class="faq-item bg-white rounded-xl shadow-sm">
+              <div class="faq-question">
+                <h3 class="text-lg font-semibold text-gray-800">Berapa lama waktu pengiriman?</h3>
+                <i class="fas fa-chevron-down text-gray-500"></i>
+              </div>
+              <div class="faq-answer px-6 pb-6 text-gray-600">
+                Pengiriman standar biasanya memakan waktu 3-5 hari kerja di dalam Indonesia. Pengiriman ekspres tersedia untuk pengiriman 1-2 hari kerja. Pengiriman internasional mungkin memakan waktu 7-14 hari kerja tergantung tujuan.
+              </div>
+            </div>
+
+            <div class="faq-item bg-white rounded-xl shadow-sm">
+              <div class="faq-question">
+                <h3 class="text-lg font-semibold text-gray-800">Apakah Anda mengirim ke luar negeri?</h3>
+                <i class="fas fa-chevron-down text-gray-500"></i>
+              </div>
+              <div class="faq-answer px-6 pb-6 text-gray-600">
+                Ya, kami mengirim ke sebagian besar negara di seluruh dunia. Biaya pengiriman dan waktu pengiriman bervariasi tergantung lokasi. Anda dapat memeriksa tarif pengiriman saat checkout.
+              </div>
+            </div>
+
+            <div class="faq-item bg-white rounded-xl shadow-sm">
+              <div class="faq-question">
+                <h3 class="text-lg font-semibold text-gray-800">Bagaimana cara melacak pesanan saya?</h3>
+                <i class="fas fa-chevron-down text-gray-500"></i>
+              </div>
+              <div class="faq-answer px-6 pb-6 text-gray-600">
+                Setelah pesanan Anda dikirim, Anda akan menerima nomor pelacakan melalui email. Anda juga dapat melacak status pesanan dengan masuk ke akun Anda dan mengunjungi bagian "Pesanan Saya".
+              </div>
+            </div>
+          </div>
+
+          <!-- Returns & Refunds -->
+          <div class="faq-category hidden">
+            <div class="faq-item bg-white rounded-xl shadow-sm">
+              <div class="faq-question">
+                <h3 class="text-lg font-semibold text-gray-800">Apa kebijakan pengembalian Anda?</h3>
+                <i class="fas fa-chevron-down text-gray-500"></i>
+              </div>
+              <div class="faq-answer px-6 pb-6 text-gray-600">
+                Kami menawarkan kebijakan pengembalian 30 hari untuk sebagian besar item. Produk harus dalam kondisi tidak terpakai dan dalam kemasan asli. Beberapa item mungkin tidak dapat dikembalikan. Silakan periksa halaman produk untuk kebijakan pengembalian khusus.
+              </div>
+            </div>
+
+            <div class="faq-item bg-white rounded-xl shadow-sm">
+              <div class="faq-question">
+                <h3 class="text-lg font-semibold text-gray-800">Bagaimana cara mengembalikan barang?</h3>
+                <i class="fas fa-chevron-down text-gray-500"></i>
+              </div>
+              <div class="faq-answer px-6 pb-6 text-gray-600">
+                Untuk mengembalikan barang, masuk ke akun Anda, buka "Pesanan Saya," pilih pesanan yang berisi barang yang ingin Anda kembalikan, dan ikuti instruksi pengembalian. Anda akan menerima label pengembalian dan instruksi melalui email.
+              </div>
+            </div>
+
+            <div class="faq-item bg-white rounded-xl shadow-sm">
+              <div class="faq-question">
+                <h3 class="text-lg font-semibold text-gray-800">Kapan saya akan menerima pengembalian dana?</h3>
+                <i class="fas fa-chevron-down text-gray-500"></i>
+              </div>
+              <div class="faq-answer px-6 pb-6 text-gray-600">
+                Pengembalian dana diproses dalam waktu 5-7 hari kerja setelah kami menerima barang yang dikembalikan. Pengembalian dana akan diterbitkan ke metode pembayaran asli Anda. Harap diperhatikan bahwa mungkin diperlukan waktu tambahan untuk bank Anda memproses pengembalian dana.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Start -->
+    <footer class="bg-white py-12">
+      <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <a href="#" class="flex items-center justify-center mb-5 text-2xl font-semibold text-gray-900">
+          <img src="/homepage/img/IMG_20250601_160540.png" class="h-12 mr-3" alt="Rapoy Store Logo" />
+          Rapoy Store
+        </a>
+        <span class="block text-sm text-center text-gray-500">
+          © 2025 Rapoystore. All Rights Reserved.
+        </span>
+      </div>
+    </footer>
+    
+    <div id="custom-cursor" class="hidden md:block"></div>
+    
+    <script src="/homepage/main/script.js"></script>
+    <script src="faq.js"></script>
+  </body>
+</html>

@@ -135,21 +135,21 @@ document.addEventListener('DOMContentLoaded', () => {
       rating: '4.5'
     },
     {
-      imageSrc: '/homepage/img/sepatu.img/sepatu convers hitam.jpg',
-      name: 'Converse Chuck Tylor 70s High Black And White',
-      price: 'Rp 750.000',
+      imageSrc: '/homepage/img/topi/topi hiaju .jpg',
+      name: 'New Era 940 Snapbcak X Boston Celtics',
+      price: 'Rp 500.000',
       rating: '4.2'
     },
     {
       imageSrc: '/homepage/img/sepatu.img/nike biru.jpg',
-      name: 'Nike Blue',
-      price: '$74',
+      name: 'Air Jordan 1 Retro High OG Hyper Royal',
+      price: 'Rp 3.500.000',
       rating: '4.7'
     },
     {
-      imageSrc: '/homepage/img/sepatu.img/nike emas.jpg',
-      name: 'Nike Gold',
-      price: '$155',
+      imageSrc: '/homepage/img/clothes.img/baju pink.heic',
+      name: 'Nike Dunk HI PRM',
+      price: '1.200.000',
       rating: '4.9'
     },
    
@@ -157,35 +157,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const clothingProducts = [
     {
-      imageSrc: 'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-      discount: '15% OFF',
-      name: 'Classic White T-Shirt',
-      price: '$29',
-      originalPrice: '$34',
+      imageSrc: '/homepage/img/clothes.img/baju pink.heic',
+      name: 'Nike Thorns Reworked Hoodie Upcycle',
+      price: 'Rp 400.000 ',
       rating: '4.8'
     },
     {
-      imageSrc: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-      discount: '20% OFF',
-      name: 'Denim Jacket',
-      price: '$89',
-      originalPrice: '$109',
+      imageSrc: '/homepage/img/clothes.img/baju crewneck.heic',
+      name: 'TOPTEN CREWNECK REWORKED NIGHT VISION',
+      price: 'Rp 500.000 ',
       rating: '4.6'
     },
     {
-      imageSrc: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-      discount: '25% OFF',
-      name: 'Casual Hoodie',
-      price: '$59',
-      originalPrice: '$79',
+      imageSrc: '/homepage/img/clothes.img/baju diamond.heic',
+      name: 'Crewneck Reworked Diamond Y2K',
+      price: 'Rp 300.000',
       rating: '4.9'
     },
     {
-      imageSrc: 'https://images.unsplash.com/photo-1591369822096-ffd140ec948f?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-      discount: '10% OFF',
-      name: 'Slim Fit Jeans',
-      price: '$69',
-      originalPrice: '$79',
+      imageSrc: '/homepage/img/clothes.img/baju biru.heic',
+      name: 'Reworked Nike Hoodie Skeleton Flames',
+      price: 'Rp 1.000.000',
       rating: '4.7'
     }
   ];
@@ -205,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </a>
         <div class="mt-4 px-5 pb-5 flex flex-col">
           <a href="#">
-            <h5 class="text-xl tracking-tight text-slate-900">${product.name}</h5>
+            <h5 class="text-1xl tracking-tight text-slate-900">${product.name}</h5>
           </a>
           <div class="mt-2 mb-5 flex items-center justify-between">
             <p>

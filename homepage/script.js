@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Progress bar functionality
+  // =============================================
+  // Progress Bar Animation
+  // =============================================
+  // This animation creates a progress bar at the top of the page
+  // that fills up as the user scrolls down the page
   const progressBar = document.getElementById('progress-bar');
   const updateProgressBar = () => {
     const scrollTop = window.scrollY;
@@ -11,35 +15,36 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', updateProgressBar);
   window.addEventListener('load', updateProgressBar);
 
-  // Get all color circle elements within the right card
+  // =============================================
+  // Color Circle Image Switcher
+  // =============================================
+  // This functionality allows users to switch product images
+  // by clicking on different color circles
   const colorCircles = document.querySelectorAll('.right-card-container .block.rounded-full');
-
-  // Get the main image element in the right card
   const mainImage = document.querySelector('.right-card-container img');
 
-  // Add click event listeners to each color circle
   colorCircles.forEach(circle => {
     circle.addEventListener('click', () => {
-      // Get the image source from the data attribute
       const newImageSrc = circle.getAttribute('data-image-src');
-
-      // Change the source of the main image
       if (mainImage && newImageSrc) {
         mainImage.src = newImageSrc;
       }
     });
   });
 
+  // =============================================
+  // Custom Cursor Animation
+  // =============================================
+  // This creates a custom cursor that follows the mouse with a smooth animation
+  // and changes appearance when hovering over interactive elements
   const customCursor = document.getElementById('custom-cursor');
-
-  if (!customCursor) return; // Exit if cursor element not found
+  if (!customCursor) return;
 
   let mouseX = 0;
   let mouseY = 0;
   let cursorX = 0;
   let cursorY = 0;
-
-  const easingFactor = 0.15; // Adjust for smoother or faster follow
+  const easingFactor = 0.15; // Controls how smoothly the cursor follows the mouse
 
   document.body.style.cursor = 'none';
 
@@ -49,39 +54,35 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function animateCursor() {
-    // Interpolate cursor position towards mouse position
     cursorX += (mouseX - cursorX) * easingFactor;
     cursorY += (mouseY - cursorY) * easingFactor;
-
-    // Apply the smoothed position
     customCursor.style.left = cursorX + 'px';
     customCursor.style.top = cursorY + 'px';
-
-    // Request next frame
     requestAnimationFrame(animateCursor);
   }
 
-  // Start the animation loop
   animateCursor();
 
-  // Handle cursor appearance on interactive elements
+  // Cursor hover effects for interactive elements
   const interactiveElements = document.querySelectorAll('a, button, img, input, textarea, select, .color-circle');
-
   interactiveElements.forEach(element => {
     element.addEventListener('mouseenter', () => {
-      customCursor.style.transform = 'translate(-50%, -50%) scale(1.5)'; // Enlarge and center
-      customCursor.style.backgroundColor = 'rgba(0, 0, 0, 0.2)'; // Semi-transparent
-      customCursor.style.border = '2px solid black'; // Add a border
+      customCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+      customCursor.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+      customCursor.style.border = '2px solid black';
     });
 
     element.addEventListener('mouseleave', () => {
-      customCursor.style.transform = 'translate(-50%, -50%) scale(1)'; // Return to normal size
-      customCursor.style.backgroundColor = 'black'; // Return to original color
-      customCursor.style.border = 'none'; // Remove border
+      customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      customCursor.style.backgroundColor = 'black';
+      customCursor.style.border = 'none';
     });
   });
 
-  // Handle click wave effect
+  // =============================================
+  // Click Wave Animation
+  // =============================================
+  // Creates a ripple effect animation when clicking anywhere on the page
   document.addEventListener('click', (e) => {
     const wave = document.createElement('div');
     wave.classList.add('click-wave');
@@ -89,25 +90,66 @@ document.addEventListener('DOMContentLoaded', () => {
     wave.style.top = e.clientY + 'px';
     document.body.appendChild(wave);
 
-    // Remove the wave element after the animation
     wave.addEventListener('animationend', () => {
       wave.remove();
     });
   });
 
-  // Left card automatic image change
-  const leftCardImage = document.querySelector('.flex-[2] img');
-  // Get references to the title and description elements
-  const leftCardTitle = document.querySelector('.flex-[2] .absolute.bottom-0 h3');
-  const leftCardDescription = document.querySelector('.flex-[2] .absolute.bottom-0 p');
+  // =============================================
+  // Product Data
+  // =============================================
+  // Sample data for different product categories
+  const newsItemsProducts = [
+    {
+      imageSrc: '/homepage/img/crocs.img/crocs coklat.png',
+      name: 'Crocs Classic Clog - Beige',
+      price: 'Rp 350.000',
+      rating: '4.9'
+    },
+    {
+      imageSrc: '/homepage/img/crocs.img/crocs black.png',
+      name: 'Crocs Classic Clog - Black',
+      price: 'Rp 350.000',
+      rating: '5.0'
+    },
+    {
+      imageSrc: '/homepage/img/crocs.img/crocs lagoon (1).png',
+      name: 'Crocs Classic Clog - Dark Blue',
+      price: 'Rp 350.000',
+      rating: '4.8'
+    },
+    {
+      imageSrc: '/homepage/img/crocs.img/white crocs.png',
+      name: 'Crocs Classic Clog - White',
+      price: 'Rp 350.000',
+      rating: '5.0'
+    },
+    {
+      imageSrc: '/homepage/img/crocs.img/pink crocs.png',
+      name: 'Crocs Classic Clog - Pink',
+      price: 'Rp 350.000',
+      rating: '4.7'
+    },
+    {
+      imageSrc: '/homepage/img/crocs.img/crocs lagoon.png',
+      name: 'Crocs Classic Clog - Green',
+      price: 'Rp 350.000',
+      rating: '4.6'
+    },
+    {
+      imageSrc: '/homepage/img/crocs.img/crocs tint.png',
+      name: 'Crocs Classic Clog - Light Blue',
+      price: 'Rp 350.000',
+      rating: '4.5'
+    }
+  ];
 
-  // Define sample recommended products data
   const recommendedProducts = [
     {
       imageSrc: 'https://images.unsplash.com/photo-1542291026-7eec264c678a?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
       discount: '10% OFF',
-      name: 'Adidas running shoes',
-      price: '$180',
+      name: 'Crocs Unisex Classic Clog ',
+      price: 'Rp 350.000',
       originalPrice: '$200',
       rating: '4.5'
     },
@@ -118,14 +160,25 @@ document.addEventListener('DOMContentLoaded', () => {
       price: '$114',
       originalPrice: '$120',
       rating: '4.2'
-    }, {
+    },
+     {
       imageSrc: 'https://images.unsplash.com/photo-1595950653106-6ca6f4f690d9?ixlib=rb-1.2.1&auto=format&fit=crop&crop=w=750&q=80',
       discount: '18% OFF',
       name: 'Converse Chuck Taylor',
       price: '$74',
       originalPrice: '$90',
       rating: '4.7'
-    },{
+    },
+    {
+      imageSrc: 'https://images.unsplash.com/photo-1505740420928-95ed7192a5e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+      discount: '22% OFF',
+      name: 'Headphones E505',
+      price: '$155',
+      originalPrice: '$199',
+      rating: '4.9'
+    },
+
+    {
       imageSrc: 'https://images.unsplash.com/photo-1505740420928-95ed7192a5e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
       discount: '22% OFF',
       name: 'Headphones E505',
@@ -135,15 +188,51 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   ];
 
-  // Function to generate product card HTML
+  const clothingProducts = [
+    {
+      imageSrc: 'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+      discount: '15% OFF',
+      name: 'Classic White T-Shirt',
+      price: '$29',
+      originalPrice: '$34',
+      rating: '4.8'
+    },
+    {
+      imageSrc: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+      discount: '20% OFF',
+      name: 'Denim Jacket',
+      price: '$89',
+      originalPrice: '$109',
+      rating: '4.6'
+    },
+    {
+      imageSrc: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+      discount: '25% OFF',
+      name: 'Casual Hoodie',
+      price: '$59',
+      originalPrice: '$79',
+      rating: '4.9'
+    },
+    {
+      imageSrc: 'https://images.unsplash.com/photo-1591369822096-ffd140ec948f?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+      discount: '10% OFF',
+      name: 'Slim Fit Jeans',
+      price: '$69',
+      originalPrice: '$79',
+      rating: '4.7'
+    }
+  ];
+
+  // =============================================
+  // Product Card Generation
+  // =============================================
+  // Function to create HTML for product cards
   function generateProductCardHtml(product) {
     return `
       <div class="relative flex w-full flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
-        <a class="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="#">
-          <img class="object-cover" src="${product.imageSrc}" alt="product image" />
-          ${product.discount ? `<span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">${product.discount}</span>` : ''}
-          <!-- Heart icon -->
-          <span class="absolute top-2 right-2 text-gray-600 z-10">
+        <a class="relative mx-3 mt-3 flex h-[240px] overflow-hidden rounded-xl" href="#">
+          <img class="object-cover w-[300px] h-[240px]" src="${product.imageSrc}" alt="product image" />
+          <span class="absolute top-2 right-2 text-gray-600 z-10 like-button" data-product='${JSON.stringify(product)}'>
             <i class="fas fa-heart"></i>
           </span>
         </a>
@@ -154,7 +243,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="mt-2 mb-5 flex items-center justify-between">
             <p>
               <span class="text-3xl font-bold text-slate-900">${product.price}</span>
-              ${product.originalPrice ? `<span class="text-sm text-slate-900 line-through">${product.originalPrice}</span>` : ''}
             </p>
             <div class="flex items-center">
               <svg aria-hidden="true" class="h-5 w-5 text-yellow-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -173,74 +261,109 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   }
 
+  // =============================================
+  // Product Display and Navigation
+  // =============================================
   // Function to display products in the grid
   function displayProducts(products) {
     if (productGridContainer) {
-      productGridContainer.innerHTML = ''; // Clear current products
+      productGridContainer.innerHTML = '';
       products.forEach(product => {
         productGridContainer.innerHTML += generateProductCardHtml(product);
       });
+
+      // Add like button functionality after rendering products
+      addLikeButtonFunctionality();
     }
   }
 
-  // Get the buttons and the product grid container
+  // Function to handle like button functionality
+  function addLikeButtonFunctionality() {
+    const likeButtons = document.querySelectorAll('.like-button');
+    likeButtons.forEach(button => {
+      const product = JSON.parse(button.getAttribute('data-product'));
+      const heartIcon = button.querySelector('i');
+      
+      // Check if product is already liked
+      const favoriteItems = JSON.parse(localStorage.getItem('favoriteItems')) || [];
+      const isLiked = favoriteItems.some(item => item.name === product.name);
+      
+      if (isLiked) {
+        heartIcon.classList.remove('text-gray-600');
+        heartIcon.classList.add('text-red-500');
+      }
+
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const favoriteItems = JSON.parse(localStorage.getItem('favoriteItems')) || [];
+        const isLiked = favoriteItems.some(item => item.name === product.name);
+
+        if (isLiked) {
+          // Remove from favorites
+          const updatedFavorites = favoriteItems.filter(item => item.name !== product.name);
+          localStorage.setItem('favoriteItems', JSON.stringify(updatedFavorites));
+          heartIcon.classList.remove('text-red-500');
+          heartIcon.classList.add('text-gray-600');
+        } else {
+          // Add to favorites
+          favoriteItems.push(product);
+          localStorage.setItem('favoriteItems', JSON.stringify(favoriteItems));
+          heartIcon.classList.remove('text-gray-600');
+          heartIcon.classList.add('text-red-500');
+        }
+      });
+    });
+  }
+
+  // Get all navigation buttons and container
   const recommendButton = document.getElementById('recommend-button');
   const newsItemButton = document.getElementById('news-item-button');
+  const clothesButton = document.querySelector('button:nth-of-type(3)');
+  const shoeButton = document.querySelector('button:nth-of-type(4)');
   const productGridContainer = document.getElementById('product-grid-container');
 
-  // Sample data for initial News Items (you can populate this from your HTML or another source)
-  const newsItemsProducts = [
-     {
-    imageSrc: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
-    discount: '39% OFF',
-    name: 'Nike Air MX Super 2500 - Red',
-    price: '$449',
-    originalPrice: '$699',
-    rating: '5.0'
-  },
-  {
-    imageSrc: 'https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
-    discount: '25% OFF',
-    name: 'Nike Air Force 1 - White',
-    price: '$299',
-    originalPrice: '$399',
-    rating: '4.8'
-  },
-  {
-    imageSrc: 'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHnuYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
-    discount: '15% OFF',
-    name: 'Nike Dunk Low - Black',
-    price: '$199',
-    originalPrice: '$229',
-    rating: '4.9'
-  },
-  {
-    imageSrc: 'https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
-    discount: '20% OFF',
-    name: 'Nike Jordan 1 - Blue',
-    price: '$399',
-    originalPrice: '$499',
-    rating: '4.7'
-  },
-  ];
-
-  // Display initial news items products on page load
+  // Display initial products
   displayProducts(newsItemsProducts);
 
-  // Add event listener to Recommend button
-  if (recommendButton && productGridContainer) {
+  // Function to update button styles
+  function updateButtonStyles(activeButton) {
+    [recommendButton, newsItemButton, clothesButton, shoeButton].forEach(button => {
+      if (button === activeButton) {
+        button.classList.add('bg-gray-800', 'text-white');
+      } else {
+        button.classList.remove('bg-gray-800', 'text-white');
+      }
+    });
+  }
+
+  // Add click event listeners for all navigation buttons
+  if (recommendButton) {
     recommendButton.addEventListener('click', () => {
       displayProducts(recommendedProducts);
+      updateButtonStyles(recommendButton);
     });
   }
 
-  // Add event listener to News Item button (to switch back)
-   if (newsItemButton && productGridContainer) {
+  if (newsItemButton) {
     newsItemButton.addEventListener('click', () => {
       displayProducts(newsItemsProducts);
+      updateButtonStyles(newsItemButton);
     });
   }
 
+  if (clothesButton) {
+    clothesButton.addEventListener('click', () => {
+      displayProducts(clothingProducts);
+      updateButtonStyles(clothesButton);
+    });
+  }
+
+  if (shoeButton) {
+    shoeButton.addEventListener('click', () => {
+      displayProducts(newsItemsProducts);
+      updateButtonStyles(shoeButton);
+    });
+  }
 });
 
 

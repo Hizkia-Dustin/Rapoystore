@@ -444,46 +444,28 @@ document.addEventListener('DOMContentLoaded', () => {
   // Duplicate brands for seamless loop (need enough to fill the container twice)
   if (brandScrollContainer) {
     const brands = Array.from(brandScrollContainer.children);
-    const numOriginalBrands = brands.length;
-
-    // Calculate the total width of one set of original brands including gaps
-    if (numOriginalBrands > 0) {
-      originalBrandWidth = brands.reduce((total, brand, index) => {
-        const brandWidth = brand.offsetWidth;
-        // Add margin only for elements that are not the last in the original set
-        const margin = (index < numOriginalBrands - 1) ? parseFloat(getComputedStyle(brand).marginRight) : 0;
-        return total + brandWidth + margin;
-      }, 0);
-       // Add the margin-right of the last original element to the last duplicate as well
-      if(numOriginalBrands > 0) {
-           originalBrandWidth += parseFloat(getComputedStyle(brands[numOriginalBrands-1]).marginRight);
-      }
-    }
-
-    // Duplicate the original brands
-    for (let i = 0; i < numOriginalBrands; i++) {
+    const numBrands = brands.length;
+    // Duplicate original brands once for a simple loop
+    for (let i = 0; i < numBrands; i++) {
       brandScrollContainer.appendChild(brands[i].cloneNode(true));
     }
-     // Ensure the duplicated set also has the correct margin after its last element
-     const duplicatedBrands = Array.from(brandScrollContainer.children).slice(numOriginalBrands);
-      if(duplicatedBrands.length > 0) {
-           duplicatedBrands[duplicatedBrands.length -1].style.marginRight = getComputedStyle(brands[numOriginalBrands-1]).marginRight;
-      }
-
-     // Set the total width of the container to prevent wrapping and ensure smooth scroll
-     brandScrollContainer.style.width = `${originalBrandWidth * 2}px`;
+    // Calculate the total width of the original set of brands for reset threshold
+    // This is an approximation; might need fine-tuning based on exact styling/gap
+    const brandWidth = brands[0].offsetWidth; // Assume all brands have same width
+    const gap = parseFloat(getComputedStyle(brands[0]).marginRight); // Get the gap between brands
+    originalBrandWidth = (brandWidth + gap) * numBrands;
   }
 
   function animateBrands() {
-    if (!brandScrollContainer || originalBrandWidth === 0) return;
+    if (!brandScrollContainer) return; // Simplified check
 
     scrollPosition -= scrollSpeed;
 
-    // Reset position when the scroll position goes past the total width of one set of brands
-    if (scrollPosition <= -originalBrandWidth) {
-      // Jump forward by the total width of one set to loop seamlessly
-      scrollPosition += originalBrandWidth;
-      // console.log('Resetting scrollPosition, new position:', scrollPosition);
+    // Reset position when scrolled past the original set of brands
+    // Use a threshold based on the estimated width of one set
+    const resetThreshold = originalBrandWidth;
+    if (scrollPosition <= -resetThreshold) {
+      scrollPosition = 0; // Reset position to the beginning
     }
 
     brandScrollContainer.style.transform = `translateX(${scrollPosition}px)`;
@@ -492,8 +474,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Start brand animation if container exists
   if (brandScrollContainer) {
-    // Set initial scroll position to 0
-    brandScrollContainer.style.transform = `translateX(0)`;
     animateBrands();
 
     // Pause on hover
@@ -505,4 +485,75 @@ document.addEventListener('DOMContentLoaded', () => {
       animateBrands();
     });
   }
+
+  // =============================================
+  // Scroll Animation Setup
+  // =============================================
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        // Unobserve after animation is triggered
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Add animation classes and observe elements
+  function setupScrollAnimations() {
+    // Hero section elements
+    const heroContent = document.querySelector('.text-center.pt-30');
+    if (heroContent) {
+      heroContent.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-1000');
+      observer.observe(heroContent);
+    }
+
+    // Product cards
+    const productCards = document.querySelectorAll('#product-grid-container > div');
+    productCards.forEach((card, index) => {
+      card.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-700');
+      card.style.transitionDelay = `${index * 100}ms`;
+      observer.observe(card);
+    });
+
+    // Why Choose Us section
+    const whyChooseUs = document.querySelector('.bg-white.py-17');
+    if (whyChooseUs) {
+      whyChooseUs.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-1000');
+      observer.observe(whyChooseUs);
+    }
+
+    // Testimonials section
+    const testimonials = document.querySelector('.bg-neutral-950');
+    if (testimonials) {
+      testimonials.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-1000');
+      observer.observe(testimonials);
+    }
+
+    // Popular Brands section
+    const popularBrands = document.querySelector('.pt-0.pb-0');
+    if (popularBrands) {
+      popularBrands.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-1000');
+      observer.observe(popularBrands);
+    }
+  }
+
+  // Add CSS for animations
+  const style = document.createElement('style');
+  style.textContent = `
+    .animate-in {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Initialize scroll animations
+  setupScrollAnimations();
 });

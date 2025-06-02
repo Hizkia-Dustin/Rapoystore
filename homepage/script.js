@@ -323,6 +323,36 @@ document.addEventListener('DOMContentLoaded', () => {
       updateButtonStyles(shoeButton);
     });
   }
+
+  // Get all elements with data-direction attribute
+  const parallaxTexts = document.querySelectorAll('[data-direction]');
+
+  // Function to update parallax effect on scroll
+  function updateParallax() {
+    const scrollY = window.scrollY; // Get current vertical scroll position
+
+    parallaxTexts.forEach(textElement => {
+      const direction = textElement.getAttribute('data-direction');
+      let translation = 0;
+
+      // Calculate horizontal translation based on scroll position and direction
+      // Adjust the multiplier (e.g., 0.2) to control the parallax speed/intensity
+      if (direction === 'left') {
+        translation = -scrollY * 0.2; // Move left as scrolling down
+      } else if (direction === 'right') {
+        translation = scrollY * 0.2;  // Move right as scrolling down
+      }
+
+      // Apply the translation using CSS transform
+      textElement.style.transform = `translateX(${translation}px)`;
+    });
+  }
+
+  // Add event listener for scroll
+  window.addEventListener('scroll', updateParallax);
+
+  // Initial update on page load
+  updateParallax();
 });
 
 

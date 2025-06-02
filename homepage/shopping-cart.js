@@ -81,6 +81,9 @@
                 updateOrderSummary();
             });
         });
+            
+            const positions = document.documentElement;
+            positions.addEventListener("")
         
         if (checkoutButton) {
             checkoutButton.addEventListener('click', () => {

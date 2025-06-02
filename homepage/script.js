@@ -333,18 +333,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const leftTexts = document.querySelectorAll('[data-direction="left"]');
   const rightTexts = document.querySelectorAll('[data-direction="right"]');
   
-  // Function to handle parallax scrolling
+  // Function to handle parallax scrolling for Rapoy Store section
   function handleParallaxScroll() {
     const scrollY = window.scrollY;
-    const speed = 0.5; // Same speed for both sections
+    const speed = 0.5;
     
     // Move left texts to the left
     leftTexts.forEach(text => {
-      
-      // Apply skew only for testimonial
       const isTestimonial = text.closest('.bg-neutral-950') !== null;
-      
-      // Only apply transform if NOT in testimonial section
       if (!isTestimonial) {
         const translateX = -scrollY * speed;
         text.style.transform = `translateX(${translateX}px)`;
@@ -353,20 +349,62 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Move right texts to the right
     rightTexts.forEach(text => {
-      const translateX = scrollY * speed;
-      
-      // Apply skew only for testimonial
       const isTestimonial = text.closest('.bg-neutral-950') !== null;
-      
-      // Apply translation while preserving skew for testimonial
       if (!isTestimonial) {
+        const translateX = scrollY * speed;
         text.style.transform = `translateX(${translateX}px)`;
-      } else {
-        // Keep skew for testimonial even if not scrolling
-        text.style.transform = 'skew-y(6deg)';
       }
     });
   }
+
+  // =============================================
+  // Testimonial Auto Animation
+  // =============================================
+  let testimonialPositions = {
+    left1: 0,
+    right1: 0,
+    left2: 0,
+    right2: 0,
+    left3: 0,
+    right3: 0,
+    left4: 0,
+    right4: 0
+  };
+  let testimonialAnimationFrame;
+
+  function animateTestimonial() {
+    // Update positions with same speed
+    testimonialPositions.left1 -= 1;
+    testimonialPositions.right1 += 1;
+    testimonialPositions.left2 -= 1;
+    testimonialPositions.right2 += 1;
+    testimonialPositions.left3 -= 1;
+    testimonialPositions.right3 += 1;
+    testimonialPositions.left4 -= 1;
+    testimonialPositions.right4 += 1;
+
+    // Reset positions when they reach certain thresholds
+    const resetThreshold = 2000;
+    Object.keys(testimonialPositions).forEach(key => {
+      if (key.startsWith('left') && testimonialPositions[key] < -resetThreshold) {
+        testimonialPositions[key] = 0;
+      }
+      if (key.startsWith('right') && testimonialPositions[key] > resetThreshold) {
+        testimonialPositions[key] = 0;
+      }
+    });
+
+    const testimonialTexts = document.querySelectorAll('.bg-neutral-950 [data-direction]');
+    testimonialTexts.forEach((text, index) => {
+      const positionKey = `${text.getAttribute('data-direction')}${Math.floor(index/2) + 1}`;
+      text.style.transform = `translateX(${testimonialPositions[positionKey]}px)`;
+    });
+
+    testimonialAnimationFrame = requestAnimationFrame(animateTestimonial);
+  }
+
+  // Start testimonial animation
+  animateTestimonial();
   
   // Add scroll event listener with requestAnimationFrame for smooth animation
   let ticking = false;
@@ -382,8 +420,13 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initial call to set initial positions
   handleParallaxScroll();
+
+  // Pause testimonial animation when tab is not visible
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      cancelAnimationFrame(testimonialAnimationFrame);
+    } else {
+      animateTestimonial();
+    }
+  });
 });
-
-
-
-

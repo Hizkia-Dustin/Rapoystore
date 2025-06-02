@@ -1,0 +1,105 @@
+* {
+        font-family: 'Richard Miller', sans-serif;
+      }
+
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      ::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Hide scrollbar for IE, Edge and Firefox */
+      * {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+
+      .color-circle {
+          cursor: pointer;
+      }
+
+      #custom-cursor {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 20px;
+          height: 20px;
+          background-color: black; /* Or any color you like */
+          border-radius: 50%;
+          pointer-events: none; /* Important to not interfere with clicks */
+          z-index: 9999;
+          transform: translate(-50%, -50%); /* Center the cursor */
+      }
+
+      @keyframes click-wave-animation {
+          0% {
+              width: 0;
+              height: 0;
+              opacity: 0.5;
+          }
+          100% {
+              width: 100px; /* Adjust size as needed */
+              height: 100px; /* Adjust size as needed */
+              opacity: 0;
+          }
+      }
+
+      .click-wave {
+          position: fixed;
+          border: 2px solid rgba(0, 0, 0, 0.5); /* Or your preferred color */
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+          pointer-events: none;
+          z-index: 9998; /* Below the custom cursor */
+          animation: click-wave-animation 0.6s ease-out;
+      }
+
+      /* Remove the CSS animation keyframes */
+      /*
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(calc((-16rem * 5) - (2rem * 5)));
+        }
+      }
+      */
+      
+      /* Remove the CSS animation class */
+      /*
+      .animate-scroll {
+        animation: scroll 30s linear infinite;
+      }
+      
+      .animate-scroll:hover {
+        animation-play-state: paused;
+      }
+      */
+
+      /* Add fading effect to the brand scroll container */
+      .brand-fade-container {
+        position: relative;
+      }
+
+      .brand-fade-container::before,
+      .brand-fade-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 8rem; /* Adjust width of the fade effect as needed */
+        z-index: 1; /* Ensure gradient is above content */
+        pointer-events: none; /* Allow clicks/hovers on content underneath */
+      }
+
+      .brand-fade-container::before {
+        left: 0;
+        background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+      }
+
+      .brand-fade-container::after {
+        right: 0;
+        background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+      }
+
+    

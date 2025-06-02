@@ -9,7 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const scrollPercent = (scrollTop / docHeight) * 100;
-    progressBar.style.width = `${scrollPercent}%`;
+    if(progressBar) {
+      progressBar.style.width = `${scrollPercent}%`;
+    }
   };
 
   window.addEventListener('scroll', updateProgressBar);
@@ -38,46 +40,46 @@ document.addEventListener('DOMContentLoaded', () => {
   // This creates a custom cursor that follows the mouse with a smooth animation
   // and changes appearance when hovering over interactive elements
   const customCursor = document.getElementById('custom-cursor');
-  if (!customCursor) return;
+  if (customCursor) {
+    let mouseX = 0;
+    let mouseY = 0;
+    let cursorX = 0;
+    let cursorY = 0;
+    const easingFactor = 0.15; // Controls how smoothly the cursor follows the mouse
 
-  let mouseX = 0;
-  let mouseY = 0;
-  let cursorX = 0;
-  let cursorY = 0;
-  const easingFactor = 0.15; // Controls how smoothly the cursor follows the mouse
+    document.body.style.cursor = 'none';
 
-  document.body.style.cursor = 'none';
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
 
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
+    function animateCursor() {
+      cursorX += (mouseX - cursorX) * easingFactor;
+      cursorY += (mouseY - cursorY) * easingFactor;
+      customCursor.style.left = cursorX + 'px';
+      customCursor.style.top = cursorY + 'px';
+      requestAnimationFrame(animateCursor);
+    }
 
-  function animateCursor() {
-    cursorX += (mouseX - cursorX) * easingFactor;
-    cursorY += (mouseY - cursorY) * easingFactor;
-    customCursor.style.left = cursorX + 'px';
-    customCursor.style.top = cursorY + 'px';
-    requestAnimationFrame(animateCursor);
+    animateCursor();
+
+    // Cursor hover effects for interactive elements
+    const interactiveElements = document.querySelectorAll('a, button, img, input, textarea, select, .color-circle');
+    interactiveElements.forEach(element => {
+      element.addEventListener('mouseenter', () => {
+        customCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        customCursor.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+        customCursor.style.border = '2px solid black';
+      });
+
+      element.addEventListener('mouseleave', () => {
+        customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        customCursor.style.backgroundColor = 'black';
+        customCursor.style.border = 'none';
+      });
+    });
   }
-
-  animateCursor();
-
-  // Cursor hover effects for interactive elements
-  const interactiveElements = document.querySelectorAll('a, button, img, input, textarea, select, .color-circle');
-  interactiveElements.forEach(element => {
-    element.addEventListener('mouseenter', () => {
-      customCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-      customCursor.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
-      customCursor.style.border = '2px solid black';
-    });
-
-    element.addEventListener('mouseleave', () => {
-      customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
-      customCursor.style.backgroundColor = 'black';
-      customCursor.style.border = 'none';
-    });
-  });
 
   // =============================================
   // Click Wave Animation
@@ -124,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
       price: 'Rp 350.000',
       rating: '5.0'
     },
-    
   ];
 
   const recommendedProducts = [
@@ -152,7 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
       price: '1.200.000',
       rating: '4.9'
     },
-   
   ];
 
   const clothingProducts = [
@@ -224,14 +224,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Product Display and Navigation
   // =============================================
   // Function to display products in the grid
+  const productGridContainer = document.getElementById('product-grid-container');
+
   function displayProducts(products) {
     if (productGridContainer) {
       productGridContainer.innerHTML = '';
       products.forEach(product => {
         productGridContainer.innerHTML += generateProductCardHtml(product);
       });
-
-      // Add like button functionality after rendering products
       addLikeButtonFunctionality();
     }
   }
@@ -279,7 +279,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const newsItemButton = document.getElementById('news-item-button');
   const clothesButton = document.querySelector('button:nth-of-type(3)');
   const shoeButton = document.querySelector('button:nth-of-type(4)');
-  const productGridContainer = document.getElementById('product-grid-container');
 
   // Display initial products
   displayProducts(newsItemsProducts);
@@ -289,8 +288,10 @@ document.addEventListener('DOMContentLoaded', () => {
     [recommendButton, newsItemButton, clothesButton, shoeButton].forEach(button => {
       if (button === activeButton) {
         button.classList.add('bg-gray-800', 'text-white');
+        button.classList.remove('text-gray-800');
       } else {
         button.classList.remove('bg-gray-800', 'text-white');
+        button.classList.add('text-gray-800');
       }
     });
   }
@@ -324,35 +325,63 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Get all elements with data-direction attribute
-  const parallaxTexts = document.querySelectorAll('[data-direction]');
-
-  // Function to update parallax effect on scroll
-  function updateParallax() {
-    const scrollY = window.scrollY; // Get current vertical scroll position
-
-    parallaxTexts.forEach(textElement => {
-      const direction = textElement.getAttribute('data-direction');
-      let translation = 0;
-
-      // Calculate horizontal translation based on scroll position and direction
-      // Adjust the multiplier (e.g., 0.2) to control the parallax speed/intensity
-      if (direction === 'left') {
-        translation = -scrollY * 0.2; // Move left as scrolling down
-      } else if (direction === 'right') {
-        translation = scrollY * 0.2;  // Move right as scrolling down
+  // =============================================
+  // Parallax Scrolling Text Animation
+  // =============================================
+  
+  // Get all text elements with data-direction attribute
+  const leftTexts = document.querySelectorAll('[data-direction="left"]');
+  const rightTexts = document.querySelectorAll('[data-direction="right"]');
+  
+  // Function to handle parallax scrolling
+  function handleParallaxScroll() {
+    const scrollY = window.scrollY;
+    const speed = 0.5; // Same speed for both sections
+    
+    // Move left texts to the left
+    leftTexts.forEach(text => {
+      
+      // Apply skew only for testimonial
+      const isTestimonial = text.closest('.bg-neutral-950') !== null;
+      
+      // Only apply transform if NOT in testimonial section
+      if (!isTestimonial) {
+        const translateX = -scrollY * speed;
+        text.style.transform = `translateX(${translateX}px)`;
       }
-
-      // Apply the translation using CSS transform
-      textElement.style.transform = `translateX(${translation}px)`;
+    });
+    
+    // Move right texts to the right
+    rightTexts.forEach(text => {
+      const translateX = scrollY * speed;
+      
+      // Apply skew only for testimonial
+      const isTestimonial = text.closest('.bg-neutral-950') !== null;
+      
+      // Apply translation while preserving skew for testimonial
+      if (!isTestimonial) {
+        text.style.transform = `translateX(${translateX}px)`;
+      } else {
+        // Keep skew for testimonial even if not scrolling
+        text.style.transform = 'skew-y(6deg)';
+      }
     });
   }
-
-  // Add event listener for scroll
-  window.addEventListener('scroll', updateParallax);
-
-  // Initial update on page load
-  updateParallax();
+  
+  // Add scroll event listener with requestAnimationFrame for smooth animation
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        handleParallaxScroll();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+  
+  // Initial call to set initial positions
+  handleParallaxScroll();
 });
 
 
